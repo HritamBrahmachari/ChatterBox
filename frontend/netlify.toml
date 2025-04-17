@@ -1,0 +1,26 @@
+# Netlify config file
+
+# Define build settings
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Handle SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Define environment variables that will be available during build
+[build.environment]
+  # Ensures NODE_ENV is set to production during build
+  NODE_ENV = "production"
+
+# Add headers for security and CORS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    # Define which domains can load resources from your site
+    Access-Control-Allow-Origin = "*"

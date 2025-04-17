@@ -1,0 +1,20 @@
+services:
+  # Backend web service configuration
+  - type: web
+    name: hey-backend
+    env: node
+    region: ohio
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET_KEY
+        sync: false # This means you need to set it manually in the Render dashboard
+      - key: MONGO_URI
+        sync: false # This means you need to set it manually in the Render dashboard
+    # Automatic branch deployments
+    autoDeploy: true
