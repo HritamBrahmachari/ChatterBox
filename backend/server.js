@@ -37,6 +37,9 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/conversations", conversationRoutes);
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('App is awake');
+});
 
 server.listen(PORT, () => {
   connectToMongoDB();
