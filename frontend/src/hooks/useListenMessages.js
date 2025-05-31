@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { useSocketContext } from "../context/socketContext";
+import useSocketStore from "../zustand/useSocketStore";
 import useConversation from "../zustand/useConversation";
-import { useAuthContext } from "../context/AuthContext";
+import useAuthStore from "../zustand/useAuthStore";
 import notificationSound from "../assets/sounds/notification.mp3";
 import { makeRequest } from "../utils/api";
 import toast from "react-hot-toast";
 
 const useListenMessages = () => {
-  const { socket } = useSocketContext();
+  const socket = useSocketStore((state) => state.socket);
   const { messages, setMessages, selectedConversation } = useConversation();
-  const { authUser } = useAuthContext();
+  const authUser = useAuthStore((state) => state.authUser);
   const [conversations, setConversations] = useState([]);
 
   // Load initial conversations

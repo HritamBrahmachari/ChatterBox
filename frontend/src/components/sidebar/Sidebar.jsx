@@ -1,10 +1,10 @@
 import Conversations from "./Conversations";
 import LogoutButton from "./LogoutButton";
 import SearchInput from "./SerachInput";
-import { useAuthContext } from "../../context/AuthContext";
+import useAuthStore from "../../zustand/useAuthStore";
 
 const Sidebar = () => {
-  const { authUser } = useAuthContext();
+  const authUser = useAuthStore((state) => state.authUser);
   
   return (    <div className="sidebar-container flex flex-col w-full h-full md:min-w-[260px] md:w-auto">
       <div className="pt-12 px-3 pb-3 sm:p-4 border-b border-gray-700 md:pt-3">

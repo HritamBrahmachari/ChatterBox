@@ -3,14 +3,14 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../zustand/useConversation";
-import { useAuthContext } from "../../context/AuthContext";
-import { useSocketContext } from "../../context/socketContext";
+import useAuthStore from "../../zustand/useAuthStore";
+import useSocketStore from "../../zustand/useSocketStore";
 import { getInitials } from "../../utils/helpers";
 import { BsChatDotsFill } from "react-icons/bs";
 
 const MessageContainer = ({ toggleSidebar }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
-  const { onlineUsers } = useSocketContext();
+  const onlineUsers = useSocketStore((state) => state.onlineUsers);
   
   const isOnline = selectedConversation && !selectedConversation.isSystem && onlineUsers.includes(selectedConversation._id);
   const isSystem = selectedConversation?.isSystem;

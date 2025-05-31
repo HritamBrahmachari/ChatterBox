@@ -1,8 +1,9 @@
-import { useThemeContext } from "../context/ThemeContext";
+import useThemeStore from "../zustand/useThemeStore";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const ThemeToggle = () => {
-  const { isDarkMode, toggleTheme } = useThemeContext();
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   return (
     <button

@@ -3,7 +3,7 @@ import Conversation from "./Conversation";
 import ChatterBoxSystem from "./ChatterBoxSystem";
 import { getRandomEmoji } from "../../utils/emojis";
 import useGetConversations from "../../hooks/useGetConversations";
-import { useAuthContext } from "../../context/AuthContext";
+import useAuthStore from "../../zustand/useAuthStore";
 
 const Conversations = () => {
   const { loading, conversations } = useGetConversations();

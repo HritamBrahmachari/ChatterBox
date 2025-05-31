@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import { makeRequest } from "../utils/api";
-import { useSocketContext } from "../context/socketContext";
+import useSocketStore from "../zustand/useSocketStore";
 
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
-  const { socket } = useSocketContext();
+  const socket = useSocketStore((state) => state.socket);
 
   const getConversations = useCallback(async () => {
     setLoading(true);

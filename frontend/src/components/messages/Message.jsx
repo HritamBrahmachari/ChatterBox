@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthContext } from "../../context/AuthContext";
-import { useThemeContext } from "../../context/ThemeContext";
+import useAuthStore from "../../zustand/useAuthStore";
+import useThemeStore from "../../zustand/useThemeStore";
 import useConversation from "../../zustand/useConversation";
 import { formatTime } from "../../utils/helpers";
 
@@ -16,7 +16,8 @@ const SERVER_BASE_URL = API_BASE_URL.replace('/api', '');
 const isImagePath = (path) => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(path);
 
 const Message = ({ message }) => {
-  const { authUser } = useAuthContext();
+  const authUser = useAuthStore((state) => state.authUser);
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const { selectedConversation } = useConversation();
   const isSender = message.senderId === authUser._id;
   const shakeClass = message.shouldShake ? "shake" : "";

@@ -1,6 +1,6 @@
 import React from "react";
 import useConversation from "../../zustand/useConversation";
-import { useSocketContext } from "../../context/socketContext";
+import useSocketStore from "../../zustand/useSocketStore";
 
 // Helper function to get initials
 const getInitials = (name) => {
@@ -16,7 +16,7 @@ const getInitials = (name) => {
 const Conversation = ({ conversation, lastIdx}) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
-  const { onlineUsers } = useSocketContext();
+  const onlineUsers = useSocketStore((state) => state.onlineUsers);
   const isOnline = onlineUsers.includes(conversation._id);
   
   return (
