@@ -6,7 +6,7 @@
   publish = "dist"               # 👈 relative to 'base' directory
 
 [build.environment]
-  NODE_ENV = "production"
+  NODE_ENV = "development"
 
 [[redirects]]
   from = "/*"
