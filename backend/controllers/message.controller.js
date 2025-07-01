@@ -49,7 +49,7 @@ export const sendMessage = async (req, res) => {
     //This will run in parallel
     await Promise.all([conversation.save(), newMessage.save()]);
 
-    //FROM HERE I WILL IMPLEMENT SOCKET IO FUNCTIONALITY
+    
 
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {

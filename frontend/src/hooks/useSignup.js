@@ -1,7 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuthStore from "../zustand/useAuthStore";
-import { makeRequest } from "../utils/api";
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
@@ -29,8 +28,17 @@ const useSignup = () => {
     setLoading(true);
 
     try {
-      const res = await makeRequest("/auth/signup", {
+      const isProduction = window.location.hostname !== 'localhost';
+      const apiUrl = isProduction
+        ? 'https://real-time-chat-application-chatterbox.onrender.com/api/auth/signup'
+        : '/api/auth/signup';
+
+      const res = await fetch(apiUrl, {
         method: "POST",
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           fullName,
           username,

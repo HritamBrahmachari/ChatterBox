@@ -1,7 +1,6 @@
 import Message from "./Message";
 import { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages";
-import useListenMessages from "../../hooks/useListenMessages";
 import useAuthStore from "../../zustand/useAuthStore";
 import useConversation from "../../zustand/useConversation";
 import { TiMessages } from "react-icons/ti";
@@ -21,7 +20,6 @@ const Messages = () => {
   const { messages, loading } = useGetMessages();
   const authUser = useAuthStore((state) => state.authUser);
   const { selectedConversation } = useConversation();
-  useListenMessages();
   const lastMessageRef = useRef();
   const messagesContainerRef = useRef();
 

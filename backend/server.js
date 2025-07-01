@@ -37,6 +37,21 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/conversations", conversationRoutes);
 
+const url ='https://real-time-chat-application-chatterbox.onrender.com';
+const interval = 60000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log("website reloded");
+    })
+    .catch((error) => {
+      console.error('error');
+    });
+}
+
+setInterval(reloadWebsite, interval);
 
 server.listen(PORT, () => {
   connectToMongoDB();

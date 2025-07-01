@@ -20,6 +20,7 @@ function App() {
     if (authUser?._id) {
       // Connect to socket when user logs in
       initSocket(authUser._id);
+      console.log(authUser)
     } else {
       // Disconnect socket when user logs out
       disconnectSocket();

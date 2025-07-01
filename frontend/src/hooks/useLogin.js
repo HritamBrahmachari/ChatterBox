@@ -1,7 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuthStore from "../zustand/useAuthStore";
-import { makeRequest } from "../utils/api";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -15,18 +14,30 @@ const useLogin = () => {
     setLoading(true);
 
     try {
-      const res = await makeRequest("/auth/login", {
+      // Simple, direct API call for login
+      const isProduction = window.location.hostname !== 'localhost';
+      const apiUrl = isProduction
+        ? 'https://real-time-chat-application-chatterbox.onrender.com/api/auth/login'
+        : '/api/auth/login';
+
+      const response = await fetch(apiUrl, {
         method: "POST",
+        credentials: 'include', // Include cookies for authentication
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json();
-      if (data.error) {
-        throw new Error(data.error);
+      const data = await response.json();
+      
+      if (!response.ok || data.error) {
+        throw new Error(data.error || 'Login failed');
       }
 
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
+      
     } catch (error) {
       toast.error(error.message);
     } finally {

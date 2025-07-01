@@ -17,7 +17,7 @@ const Sidebar = () => {
         <SearchInput />
       </div>
       <div className="flex-1 overflow-y-auto">
-        <Conversations />
+      <Conversations />
       </div>
       <div className="p-2 sm:p-3 border-t border-gray-700">
         <div className="flex items-center justify-between">

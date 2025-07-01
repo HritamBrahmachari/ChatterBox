@@ -5,6 +5,8 @@ import Conversation from "../models/conversation.model.js";
 export const getUserConversations = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
+  
+    
 
     // Find all conversations where the current user is involved
     // Sort by updatedAt in descending order (newest first)
@@ -17,9 +19,13 @@ export const getUserConversations = async (req, res) => {
       select: "-password",
       match: { _id: { $ne: loggedInUserId } } // Only include other participants
     });
-
+   console.log(conversations);
+   
+    
     // Extract the other participants from conversations
     const conversationUsers = conversations.map(conv => conv.participants[0]);
+   
+    
     
     // Filter out any null values (in case of data inconsistency)
     const filteredUsers = conversationUsers.filter(user => user);

@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import { makeRequest } from "../utils/api";
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
@@ -11,8 +10,17 @@ const useSendMessage = () => {
   const sendMessage = async (message) => {
     setLoading(true);
     try {
-      const res = await makeRequest(`/messages/send/${selectedConversation._id}`, {
+      const isProduction = window.location.hostname !== 'localhost';
+      const apiUrl = isProduction
+        ? `https://real-time-chat-application-chatterbox.onrender.com/api/messages/send/${selectedConversation._id}`
+        : `/api/messages/send/${selectedConversation._id}`;
+
+      const res = await fetch(apiUrl, {
         method: "POST",
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ message }),
       });
       

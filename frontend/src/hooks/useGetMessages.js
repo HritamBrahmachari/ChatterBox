@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import { makeRequest } from "../utils/api";
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +11,17 @@ const useGetMessages = () => {
       setLoading(true);
 
       try {
-        const res = await makeRequest(`/messages/${selectedConversation._id}`);
+        const isProduction = window.location.hostname !== 'localhost';
+        const apiUrl = isProduction
+          ? `https://real-time-chat-application-chatterbox.onrender.com/api/messages/${selectedConversation._id}`
+          : `/api/messages/${selectedConversation._id}`;
+
+        const res = await fetch(apiUrl, {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         const data = await res.json();
 
         if (data.error) {

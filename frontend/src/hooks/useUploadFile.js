@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { makeRequest } from '../utils/api';
 
 // Assume sendMessage function is passed in or obtained from context/store
 const useUploadFile = (sendMessageCallback) => {
@@ -23,7 +22,7 @@ const useUploadFile = (sendMessageCallback) => {
                 ? 'https://real-time-chat-application-chatterbox.onrender.com/api'
                 : '/api';
                 
-            // Direct fetch for file upload (can't use makeRequest because of FormData)
+            // Direct fetch for file upload
             const res = await fetch(`${API_BASE_URL}/messages/upload`, {
                 method: 'POST',
                 credentials: 'include',

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { makeRequest } from "../utils/api";
 
 const useSearchUsers = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +13,17 @@ const useSearchUsers = () => {
     
     setLoading(true);
     try {
-      const res = await makeRequest(`/users/search?name=${searchTerm}`);
+      const isProduction = window.location.hostname !== 'localhost';
+      const apiUrl = isProduction
+        ? `https://real-time-chat-application-chatterbox.onrender.com/api/users/search?name=${searchTerm}`
+        : `/api/users/search?name=${searchTerm}`;
+
+      const res = await fetch(apiUrl, {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await res.json();
       
       if (data.error) {
