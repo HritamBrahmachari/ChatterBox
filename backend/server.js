@@ -41,8 +41,7 @@ const url ='https://real-time-chat-application-chatterbox.onrender.com';
 const interval = 60000;
 
 function reloadWebsite() {
-  axios
-    .get(url)
+  fetch(url)
     .then((response) => {
       console.log("website reloded");
     })
