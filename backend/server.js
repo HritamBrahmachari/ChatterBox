@@ -21,7 +21,7 @@ dotenv.config();
 // Configure CORS for the Express application
 app.use(cors({
   origin: process.env.NODE_ENV === "production" 
-    ? ["https://chatterboxing.netlify.app", "https://real-time-chat-application-chatterbox.netlify.app", "https://chatterbox-app.netlify.app"] 
+    ? ["https://ourchatterbox.netlify.app", "https://real-time-chat-application-chatterbox.netlify.app", "https://chatterbox-app.netlify.app"] 
     : "http://localhost:3000",
   credentials: true // Allow credentials (cookies)
 }));
